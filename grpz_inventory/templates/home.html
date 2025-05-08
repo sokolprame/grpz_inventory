@@ -1,0 +1,38 @@
+﻿{% extends "base.html" %}
+{% block content %}
+<div class="min-h-screen bg-gray-100">
+    <div class="container mx-auto p-6">
+        <h1 class="mb-4 text-4xl font-bold text-gray-800">GRPZ Inventory Dashboard</h1>
+        <p class="mb-6 text-gray-600">Управляйте запасами, заказами и поставками с помощью нашей системы.</p>
+
+        <!-- Метрики -->
+        <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div class="rounded-lg bg-white p-6 shadow-md">
+                <h2 class="mb-2 text-xl font-semibold text-gray-700">Общее количество компонентов</h2>
+                <p class="text-3xl font-bold text-blue-600">{{ total_components }}</p>
+            </div>
+            <div class="rounded-lg bg-white p-6 shadow-md">
+                <h2 class="mb-2 text-xl font-semibold text-gray-700">Компоненты с низким запасом</h2>
+                <p class="text-3xl font-bold text-red-600">{{ low_stock_components }}</p>
+            </div>
+        </div>
+
+        <!-- Последние компоненты -->
+        <div class="rounded-lg bg-white p-6 shadow-md">
+            <h2 class="mb-4 text-2xl font-semibold text-gray-700">Недавно добавленные компоненты</h2>
+            {% if recent_components %}
+            <ul class="space-y-2">
+                {% for component in recent_components %}
+                <li class="flex items-center justify-between">
+                    <a href="{% url 'component_detail' component.pk %}" class="text-blue-500 hover:underline">{{ component.name }} ({{ component.part_number }})</a>
+                    <span class="text-gray-600">Добавлено: {{ component.created_at|date:"d.m.Y H:i" }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-600">Нет недавно добавленных компонентов.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

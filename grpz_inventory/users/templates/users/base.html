@@ -1,0 +1,5 @@
+{% load static %}
+Главная {% if user.is_authenticated %} Профиль Выйти {% else %} Войти Регистрация {% endif %}
+{% block content %}{% endblock %} {% for message in messages %}
+{{ message }}
+{% endfor %}

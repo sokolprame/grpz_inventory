@@ -1,3 +1,10 @@
-from django.shortcuts import render
+﻿from django.shortcuts import render, get_object_or_404
+from .models import Component
 
-# Create your views here.
+def components_list(request):
+    components = Component.objects.all()
+    return render(request, 'components/list.html', {'components': components})
+
+def component_detail(request, pk):
+    component = get_object_or_404(Component, pk=pk)
+    return render(request, 'components/detail.html', {'component': component})
