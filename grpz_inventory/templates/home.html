@@ -16,20 +16,20 @@
 
 <section>
     <h2 class="mb-4 text-2xl font-semibold text-black">Список комплектующих</h2>
-    <div id="componentsGrid" class="grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+    <div id="componentsGrid" class="grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {% for component in recent_components %}
         <a href="{% url 'components:component_detail' component.pk %}" class="block">
-            <div class="flex space-x-4 rounded-lg border border-red-200 bg-white p-5 shadow-md transition hover:shadow-lg">
-                <div class="flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-md bg-red-100">
+            <div class="flex max-w-xs space-x-3 rounded-lg border border-red-200 bg-white p-4 shadow-md transition hover:shadow-lg">
+                <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-md bg-red-100">
                     {% if component.image %}
                     <img src="{{ component.image.url }}" alt="{{ component.name }}" class="h-full w-full rounded-md object-cover">
                     {% else %}
-                    <span class="select-none text-base font-semibold text-red-400">Image</span>
+                    <span class="select-none text-sm font-semibold text-red-400">Image</span>
                     {% endif %}
                 </div>
                 <div class="flex flex-col justify-center">
-                    <h3 class="text-lg font-semibold text-red-800">{{ component.name }}</h3>
-                    <p class="text-base text-red-700">Количество: {{ component.quantity }}</p>
+                    <h3 class="text-base font-semibold text-red-800">{{ component.name }}</h3>
+                    <p class="text-sm text-red-700">Количество: {{ component.quantity }}</p>
                 </div>
             </div>
         </a>
@@ -100,13 +100,13 @@
             card.href = `{% url 'components:component_detail' 0 %}`.replace('0', '');
             card.className = 'block';
             card.innerHTML = `
-                <div class="flex space-x-4 rounded-lg border border-red-200 bg-white p-5 shadow-md transition hover:shadow-lg">
-                    <div class="flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-md bg-red-100">
-                        ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(name)}" class="h-full w-full rounded-md object-cover">` : '<span class="select-none text-base font-semibold text-red-400">Image</span>'}
+                <div class="flex max-w-xs space-x-3 rounded-lg border border-red-200 bg-white p-4 shadow-md transition hover:shadow-lg">
+                    <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-md bg-red-100">
+                        ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(name)}" class="h-full w-full rounded-md object-cover">` : '<span class="select-none text-sm font-semibold text-red-400">Image</span>'}
                     </div>
                     <div class="flex flex-col justify-center">
-                        <h3 class="text-lg font-semibold text-red-800">${escapeHtml(name)}</h3>
-                        <p class="text-base text-red-700">Количество: ${parseInt(quantity, 10)}</p>
+                        <h3 class="text-base font-semibold text-red-800">${escapeHtml(name)}</h3>
+                        <p class="text-sm text-red-700">Количество: ${parseInt(quantity, 10)}</p>
                     </div>
                 </div>
             `;
@@ -114,7 +114,7 @@
         }
 
         function loadComponents() {
-            fetch('{% url "home" %}', {  // Убрали пространство имён "core"
+            fetch('{% url "home" %}', {
                 method: 'GET',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
