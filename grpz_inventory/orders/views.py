@@ -13,10 +13,12 @@ def order_create(request):
             order_item = order_item_form.save(commit=False)
             order_item.order = order
             order_item.save()
+            print(f"Создан заказ #{order.id} для пользователя {request.user.username}")  # Отладочный вывод
             messages.success(request, 'Заказ успешно создан!')
             return redirect('users:profile')
         else:
             messages.error(request, 'Ошибка при создании заказа. Проверьте данные.')
+            print(f"Ошибки формы: {order_form.errors}, {order_item_form.errors}")  # Отладочный вывод
     else:
         order_form = OrderForm()
         order_item_form = OrderItemForm()

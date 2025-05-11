@@ -2,19 +2,34 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-
+from django.views.decorators.cache import never_cache  
 from components.models import Component
 from warehouses.models import Warehouse
 
 User = get_user_model()
 
+@never_cache
 def home(request):
-    total_components  = Component.objects.count()
-    warehouse_count   = Warehouse.objects.count()
-    user_count        = User.objects.count()
-    low_stock_count   = Component.objects.filter(quantity__lt=10).count()
-    recent_components = Component.objects.order_by('-created_at')[:5]
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        components = Component.objects.order_by('-created_at')[:5]
+        data = {
+            'components': [
+                {
+                    'pk': c.pk,
+                    'name': c.name,
+                    'quantity': c.quantity,
+                    'image': c.image.url if c.image else None
+                } for c in components
+            ]
+        }
+        return JsonResponse(data)
 
+    total_components = Component.objects.count()
+    warehouse_count = Warehouse.objects.count()
+    user_count = User.objects.count()
+    low_stock_count = Component.objects.filter(quantity__lt=10).count()
+    recent_components = Component.objects.order_by('-created_at')[:5]
+    print(f"Загружено комплектующих для главной страницы: {recent_components.count()}")
     return render(request, 'home.html', {
         'total_components': total_components,
         'warehouse_count': warehouse_count,

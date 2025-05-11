@@ -17,7 +17,7 @@
 <section>
     <h2 class="mb-4 text-2xl font-semibold text-black">Список комплектующих</h2>
     <div id="componentsGrid" class="grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-        {% for component in components %}
+        {% for component in recent_components %}
         <a href="{% url 'components:component_detail' component.pk %}" class="block">
             <div class="flex space-x-4 rounded-lg border border-red-200 bg-white p-5 shadow-md transition hover:shadow-lg">
                 <div class="flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-md bg-red-100">
@@ -87,6 +87,7 @@
                     grid.insertBefore(card, grid.firstChild);
                     form.reset();
                     alert('Комплектующее успешно добавлено!');
+                    loadComponents();
                 } else {
                     alert('Ошибка при добавлении комплектующего. Проверьте данные.');
                 }
@@ -96,7 +97,7 @@
 
         function createComponentCard(name, quantity, imageUrl) {
             const card = document.createElement('a');
-            card.href = '#'; // Заменится на реальный URL при рендеринге
+            card.href = `{% url 'components:component_detail' 0 %}`.replace('0', '');
             card.className = 'block';
             card.innerHTML = `
                 <div class="flex space-x-4 rounded-lg border border-red-200 bg-white p-5 shadow-md transition hover:shadow-lg">
@@ -111,6 +112,44 @@
             `;
             return card;
         }
+
+        function loadComponents() {
+            fetch('{% url "home" %}', {  // Убрали пространство имён "core"
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                grid.innerHTML = '';
+                data.components.forEach(component => {
+                    const card = createComponentCard(
+                        component.name,
+                        component.quantity,
+                        component.image
+                    );
+                    card.href = card.href.replace('', `{% url 'components:component_detail' 0 %}`.replace('0', component.pk));
+                    grid.appendChild(card);
+                });
+                if (data.components.length === 0) {
+                    grid.innerHTML = `
+                        <div class="rounded-lg border border-red-200 bg-white p-6 text-center shadow-md">
+                            <p class="text-lg text-red-800">Комплектующие не найдены.</p>
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => console.error('Ошибка при загрузке комплектующих:', error));
+        }
+
+        window.addEventListener('pageshow', function() {
+            loadComponents();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadComponents();
+        });
 
         function escapeHtml(text) {
             return text.replace(/[&<>"']/g, function(m) {

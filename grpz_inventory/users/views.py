@@ -19,4 +19,6 @@ def register(request):
     return render(request, 'users/registration/register.html', {'form': form})
 
 def profile(request):
-    return render(request, 'users/profile.html')
+    orders = Order.objects.filter(created_by=request.user).prefetch_related('orderitem_set')
+    print(f"Загружено заказов для {request.user.username}: {orders.count()}")  # Отладочный вывод
+    return render(request, 'users/profile.html', {'orders': orders})
