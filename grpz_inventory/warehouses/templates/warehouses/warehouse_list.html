@@ -1,0 +1,36 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Склады - GRPZ Inventory{% endblock %}
+
+{% block content %}
+<section>
+    <h2 class="mb-4 text-2xl font-semibold text-black">Склады</h2>
+    <div class="mb-6 flex items-center justify-between">
+        <p class="text-lg">Управляйте своими складами.</p>
+        <a href="{% url 'warehouses:warehouse_create' %}" class="rounded-md border border-red-500 px-5 py-2 font-semibold text-red-800 transition hover:bg-red-500 hover:text-white">Добавить склад</a>
+    </div>
+    {% if warehouses %}
+    <div class="grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        {% for warehouse in warehouses %}
+        <div class="flex space-x-4 rounded-lg border border-red-200 bg-white p-5 shadow-md">
+            <div class="flex h-24 w-24 flex-shrink-0 select-none items-center justify-center rounded-md bg-red-100 text-base font-semibold text-red-400">Image</div>
+            <div class="flex flex-col justify-center">
+                <h3 class="text-lg font-semibold text-red-800">{{ warehouse.name }}</h3>
+                <p class="text-base text-red-700">Местоположение: {{ warehouse.location|default:"Не указано" }}</p>
+                <p class="text-base text-red-700">Вместимость: {{ warehouse.capacity }}</p>
+                <div class="mt-2 flex space-x-2">
+                    <a href="{% url 'warehouses:warehouse_edit' warehouse.pk %}" class="font-semibold text-red-800 hover:underline">Редактировать</a>
+                    <a href="#" class="font-semibold text-red-700 hover:underline">Удалить</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="rounded-lg border border-red-200 bg-white p-6 text-center shadow-md">
+        <p class="text-lg text-red-800">Склады не найдены.</p>
+        <a href="{% url 'warehouses:warehouse_create' %}" class="mt-4 inline-block rounded-md border border-red-500 px-5 py-2 font-semibold text-red-800 transition hover:bg-red-500 hover:text-white">Добавить первый склад</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

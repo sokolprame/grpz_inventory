@@ -1,15 +1,18 @@
-﻿"""
-{% extends "base.html" %}
+﻿{% extends 'base.html' %}
+
+{% block title %}{{ component.name }} - GRPZ Inventory{% endblock %}
+
 {% block content %}
-<div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold">{{ component.name }}</h1>
-    <p><strong>Описание:</strong> {{ component.description }}</p>
-    <p><strong>Количество:</strong> {{ component.quantity }}</p>
-    <p><strong>Цена:</strong> {{ component.price }}</p>
-    <p><strong>Поставщик:</strong> {{ component.supplier.name }}</p>
-    <p><strong>Создано:</strong> {{ component.created_at }}</p>
-    <p><strong>Обновлено:</strong> {{ component.updated_at }}</p>
-    <a href="{% url 'components_list' %}" class="rounded bg-blue-500 p-2 text-white">Назад к списку</a>
-</div>
+<section>
+    <h2 class="mb-4 text-2xl font-semibold text-black">{{ component.name }}</h2>
+    <div class="mx-auto max-w-md">
+        <div class="rounded-[0.5rem] border border-red-200 bg-white p-8 shadow-lg">
+            <p class="text-lg text-red-700"><strong>Номер части:</strong> {{ component.part_number }}</p>
+            <p class="text-lg text-red-700"><strong>Категория:</strong> {{ component.category }}</p>
+            <p class="text-lg text-red-700"><strong>Количество:</strong> {{ component.quantity }}</p>
+            <p class="text-lg text-red-700"><strong>Описание:</strong> {{ component.description|default:"Нет описания" }}</p>
+            <a href="{% url 'components:component_list' %}" class="mt-4 inline-block rounded-md bg-red-700 px-4 py-2 font-semibold text-white transition hover:bg-red-800">Назад к списку</a>
+        </div>
+    </div>
+</section>
 {% endblock %}
-"""

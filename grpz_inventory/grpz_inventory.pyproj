@@ -62,6 +62,7 @@
     <Compile Include="grpz_inventory\wsgi.py" />
     <Compile Include="orders\admin.py" />
     <Compile Include="orders\apps.py" />
+    <Compile Include="orders\forms.py" />
     <Compile Include="orders\migrations\__init__.py" />
     <Compile Include="orders\models.py" />
     <Compile Include="orders\tests.py" />
@@ -86,6 +87,7 @@
     <Compile Include="suppliers\__init__.py" />
     <Compile Include="users\admin.py" />
     <Compile Include="users\apps.py" />
+    <Compile Include="users\forms.py" />
     <Compile Include="users\migrations\__init__.py" />
     <Compile Include="users\models.py" />
     <Compile Include="users\tests.py" />
@@ -94,6 +96,7 @@
     <Compile Include="users\__init__.py" />
     <Compile Include="warehouses\admin.py" />
     <Compile Include="warehouses\apps.py" />
+    <Compile Include="warehouses\forms.py" />
     <Compile Include="warehouses\migrations\__init__.py" />
     <Compile Include="warehouses\models.py" />
     <Compile Include="warehouses\tests.py" />
@@ -305,7 +308,7 @@
     <Content Include="audit\templates\audit\index.html" />
     <Content Include="components\templates\components\detail.html" />
     <Content Include="components\templates\components\list.html" />
-    <Content Include="orders\templates\orders\index.html" />
+    <Content Include="orders\templates\orders\order_form.html" />
     <Content Include="postcss.config.js" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
@@ -475,7 +478,8 @@
     <Content Include="users\templates\users\registration\register.html" />
     <Content Include="users\templates\users\base.html" />
     <Content Include="vite.config.js" />
-    <Content Include="warehouses\templates\warehouses\index.html" />
+    <Content Include="warehouses\templates\warehouses\warehouse_form.html" />
+    <Content Include="warehouses\templates\warehouses\warehouse_list.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">

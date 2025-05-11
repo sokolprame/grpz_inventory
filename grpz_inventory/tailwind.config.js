@@ -1,11 +1,10 @@
 module.exports = {
     content: [
-        "./templates/**/*.{html,js}",
-        "./grpz_inventory/templates/**/*.{html,js}",
-        "./**/templates/**/*.{html,js}",
+        './static/css/styles.css',
+        './**/templates/**/*.html', // Обновлённый паттерн для всех приложений
     ],
     theme: {
         extend: {},
     },
     plugins: [],
-}
+};

@@ -1,0 +1,22 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}{{ action }} склад - GRPZ Inventory{% endblock %}
+
+{% block content %}
+<section>
+    <h2 class="mb-4 text-2xl font-semibold text-black">{{ action }} склад</h2>
+    <form method="post" class="max-w-md space-y-6 rounded-lg border border-red-200 bg-white p-6 shadow-md">
+        {% csrf_token %}
+        {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}" class="mb-2 block text-lg font-semibold text-red-800">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <p class="mt-1 text-sm text-red-800">{{ field.errors.as_text }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="w-full rounded-md bg-red-700 py-3 text-lg font-bold text-white transition hover:bg-red-800">{{ action }}</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,7 +1,9 @@
 ﻿from django.urls import path
 from . import views
 
+app_name = 'components'
+
 urlpatterns = [
-    path('', views.components_list, name='components_list'),
-    path('<int:pk>/', views.component_detail, name='component_detail'),
+    path('', views.component_list, name='component_list'),
+    path('<int:pk>/', views.component_detail, name='component_detail'),  # Добавляем маршрут для деталей
 ]

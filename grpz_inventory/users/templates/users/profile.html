@@ -1,10 +1,70 @@
-﻿{% extends "base.html" %}
+﻿{% extends 'base.html' %}
+
+{% block title %}Профиль - GRPZ Inventory{% endblock %}
+
 {% block content %}
-<div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold">Профиль пользователя</h1>
-    <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Роль:</strong> {{ user.role }}</p>
-    <a href="{% url 'logout' %}" class="text-red-500">Выйти</a>
-</div>
+<section>
+    <h2 class="mb-4 text-2xl font-semibold text-black">Профиль</h2>
+    <div class="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row">
+        <!-- Левая колонка: Информация о пользователе -->
+        <div class="md:w-1/3">
+            <div class="rounded-[0.5rem] border border-red-200 bg-white p-8 shadow-lg">
+                <h3 class="mb-4 text-xl font-bold text-red-800">Информация о пользователе</h3>
+                <p class="text-lg text-red-700"><strong>Имя пользователя:</strong> {{ request.user.username }}</p>
+                <p class="text-lg text-red-700"><strong>Email:</strong> {{ request.user.email }}</p>
+                <p class="text-lg text-red-700"><strong>Роль:</strong> {{ request.user.role }}</p>
+                <p class="text-lg text-red-700"><strong>Telegram ID:</strong> {{ request.user.telegram_id|default:"Не указан" }}</p>
+                <p class="text-lg text-red-700"><strong>Двухфакторная аутентификация:</strong> {% if request.user.is_2fa_enabled %}Включена{% else %}Выключена{% endif %}</p>
+            </div>
+        </div>
+
+        <!-- Правая колонка: Заказы -->
+        <div class="md:w-2/3">
+            <div class="mb-4 flex items-center justify-between">
+                <h3 class="text-2xl font-semibold text-black">Ваши заказы</h3>
+                <a href="{% url 'orders:order_create' %}" class="rounded-md bg-red-700 px-4 py-2 font-semibold text-white transition hover:bg-red-800">Добавить заказ</a>
+            </div>
+            {% if orders %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full rounded-lg border border-red-200 bg-white shadow-md">
+                    <thead>
+                        <tr class="bg-red-100">
+                            <th class="px-4 py-2 text-left font-semibold text-red-800">Заказ</th>
+                            <th class="px-4 py-2 text-left font-semibold text-red-800">Поставщик</th>
+                            <th class="px-4 py-2 text-left font-semibold text-red-800">Дата</th>
+                            <th class="px-4 py-2 text-left font-semibold text-red-800">Статус</th>
+                            <th class="px-4 py-2 text-left font-semibold text-red-800">Элементы</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr class="border-t border-red-200">
+                            <td class="px-4 py-2 text-red-700">Заказ #{{ order.id }}</td>
+                            <td class="px-4 py-2 text-red-700">{{ order.supplier }}</td>
+                            <td class="px-4 py-2 text-red-700">{{ order.order_date|date:"d.m.Y H:i" }}</td>
+                            <td class="px-4 py-2 text-red-700">{{ order.get_status_display }}</td>
+                            <td class="px-4 py-2 text-red-700">
+                                {% if order.orderitem_set.all %}
+                                <ul class="list-disc pl-4">
+                                    {% for item in order.orderitem_set.all %}
+                                    <li>{{ item.component }} ({{ item.quantity }} шт.)</li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                Нет элементов
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="rounded-lg border border-red-200 bg-white p-6 shadow-md">
+                <p class="text-lg text-red-800">У вас пока нет заказов.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
 {% endblock %}

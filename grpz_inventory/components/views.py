@@ -1,7 +1,7 @@
 ﻿from django.shortcuts import render, get_object_or_404
 from .models import Component
 
-def components_list(request):
+def component_list(request):
     components = Component.objects.all()
     return render(request, 'components/list.html', {'components': components})
 

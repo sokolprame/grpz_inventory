@@ -48,12 +48,11 @@ INSTALLED_APPS = [
 # Middleware framework
 # https://docs.djangoproject.com/en/2.1/topics/http/middleware/
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+     'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Добавьте или переместите сюда
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Должно быть после SessionMiddleware
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -125,5 +124,7 @@ AUTH_USER_MODEL = 'users.User'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'login'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home'  # Перенаправление после входа
+LOGIN_URL = 'login'  # URL для входа (если пользователь не авторизован)
+LOGOUT_REDIRECT_URL = 'home'  # Перенаправление после выхода
+

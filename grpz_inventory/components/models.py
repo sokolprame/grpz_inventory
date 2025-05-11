@@ -1,7 +1,6 @@
 ﻿from django.db import models
 
 class Component(models.Model):
-
     name = models.CharField(max_length=255, verbose_name='Наименование')
     part_number = models.CharField(max_length=50, unique=True, verbose_name='Артикул')
     category = models.CharField(max_length=100, blank=True, verbose_name='Категория')
@@ -13,6 +12,7 @@ class Component(models.Model):
     supplier = models.ForeignKey('suppliers.Supplier', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Поставщик')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    image = models.ImageField(upload_to='components/', blank=True, null=True, verbose_name='Изображение')
 
     class Meta:
         verbose_name = 'Комплектующее'

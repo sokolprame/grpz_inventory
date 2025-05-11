@@ -1,0 +1,49 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Создать заказ - GRPZ Inventory{% endblock %}
+
+{% block content %}
+<section>
+    <h2 class="mb-4 text-2xl font-semibold text-black">Создать заказ</h2>
+    <div class="mx-auto max-w-md">
+        <div class="rounded-[0.5rem] border border-red-200 bg-white p-8 shadow-lg">
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                <!-- Поля формы заказа -->
+                <div>
+                    <label for="{{ order_form.supplier.id_for_label }}" class="mb-1 block text-sm font-medium text-red-800">{{ order_form.supplier.label }}</label>
+                    {{ order_form.supplier }}
+                    {% if order_form.supplier.errors %}
+                    <p class="mt-1 text-sm text-[#b91c1c]">{{ order_form.supplier.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ order_form.status.id_for_label }}" class="mb-1 block text-sm font-medium text-red-800">{{ order_form.status.label }}</label>
+                    {{ order_form.status }}
+                    {% if order_form.status.errors %}
+                    <p class="mt-1 text-sm text-[#b91c1c]">{{ order_form.status.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <!-- Поля формы элемента заказа -->
+                <h3 class="mt-4 text-lg font-semibold text-red-800">Элемент заказа</h3>
+                <div>
+                    <label for="{{ order_item_form.component.id_for_label }}" class="mb-1 block text-sm font-medium text-red-800">{{ order_item_form.component.label }}</label>
+                    {{ order_item_form.component }}
+                    {% if order_item_form.component.errors %}
+                    <p class="mt-1 text-sm text-[#b91c1c]">{{ order_item_form.component.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ order_item_form.quantity.id_for_label }}" class="mb-1 block text-sm font-medium text-red-800">{{ order_item_form.quantity.label }}</label>
+                    {{ order_item_form.quantity }}
+                    {% if order_item_form.quantity.errors %}
+                    <p class="mt-1 text-sm text-[#b91c1c]">{{ order_item_form.quantity.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <button type="submit" class="w-full rounded-[0.5rem] bg-red-700 px-6 py-3 font-semibold text-white transition hover:bg-red-800">Создать заказ</button>
+            </form>
+            <p class="mt-4 text-center text-gray-600"><a href="{% url 'users:profile' %}" class="text-red-800 hover:underline">Вернуться в профиль</a></p>
+        </div>
+    </div>
+</section>
+{% endblock %}
