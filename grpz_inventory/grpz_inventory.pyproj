@@ -48,6 +48,7 @@
     <Compile Include="audit\__init__.py" />
     <Compile Include="components\admin.py" />
     <Compile Include="components\apps.py" />
+    <Compile Include="components\forms.py" />
     <Compile Include="components\migrations\__init__.py" />
     <Compile Include="components\models.py" />
     <Compile Include="components\tests.py" />
@@ -166,6 +167,7 @@
     <Folder Include="suppliers\migrations\" />
     <Folder Include="suppliers\templates\" />
     <Folder Include="suppliers\templates\suppliers\" />
+    <Folder Include="users\templates\users\admin\" />
     <Folder Include="users\templates\users\registration\" />
     <Folder Include="users\" />
     <Folder Include="users\migrations\" />
@@ -467,12 +469,17 @@
     <Content Include="static\admin\js\vendor\xregexp\LICENSE.txt" />
     <Content Include="static\admin\js\vendor\xregexp\xregexp.js" />
     <Content Include="static\admin\js\vendor\xregexp\xregexp.min.js" />
+    <Content Include="static\css\input.css" />
     <Content Include="static\css\styles.css" />
     <Content Include="stock_operations\templates\stock_operations\index.html" />
     <Content Include="suppliers\templates\suppliers\index.html" />
     <Content Include="tailwind.config.js" />
     <Content Include="templates\base.html" />
     <Content Include="templates\home.html" />
+    <Content Include="users\templates\users\admin\user_delete.html" />
+    <Content Include="users\templates\users\admin\user_edit.html" />
+    <Content Include="users\templates\users\admin\user_list.html" />
+    <Content Include="users\templates\users\profile_report.html" />
     <Content Include="users\templates\users\registration\login.html" />
     <Content Include="users\templates\users\profile.html" />
     <Content Include="users\templates\users\registration\register.html" />

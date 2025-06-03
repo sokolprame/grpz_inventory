@@ -13,22 +13,22 @@
                 <p class="text-red-700">Email: {{ user.email|default:"Не указан" }}</p>
                 <p class="text-red-700">Дата регистрации: {{ user.date_joined|date:"d.m.Y H:i" }}</p>
             </div>
-            <!-- Кнопка для скачивания отчёта -->
-            <div class="mb-4 flex justify-end">
-                <a href="{% url 'users:download_profile_report' %}" class="rounded-md bg-red-700 px-4 py-2 font-semibold text-white transition hover:bg-red-800">Скачать отчёт (PDF)</a>
+            <!-- Кнопки -->
+            <div class="mb-4 flex flex-col space-y-2">
+                <a href="{% url 'users:download_profile_report' %}" class="rounded-md bg-red-700 px-4 py-2 text-center font-semibold text-white transition hover:bg-red-800">Скачать отчёт (PDF)</a>
+                {% if user.is_staff or user.is_superuser %}
+                <a href="{% url 'users:user_list' %}" class="rounded-md bg-red-700 px-4 py-2 text-center font-semibold text-white transition hover:bg-red-800">Управление пользователями</a>
+                {% endif %}
             </div>
         </div>
 
         <!-- Правая колонка: Заказы и Компоненты -->
         <div class="md:w-2/3">
-
             <!-- Заказы -->
             <h3 class="mb-4 text-2xl font-semibold text-black">Ваши заказы</h3>
-
             <div class="mb-4">
                 <a href="{% url 'orders:order_create' %}" class="rounded-md bg-red-700 px-4 py-2 font-semibold text-white transition hover:bg-red-800">Добавить заказ</a>
             </div>
-
             {% if orders %}
             <div class="mb-6 overflow-x-auto">
                 <table class="min-w-full rounded-lg border border-red-200 bg-white shadow-md">

@@ -24,7 +24,7 @@
                     {% if component.image %}
                     <img src="{{ component.image.url }}" alt="{{ component.name }}" class="h-full w-full rounded-md object-cover">
                     {% else %}
-                    <span class="select-none text-sm font-semibold text-red-400">Image</span>
+                    <span class="text-sm font-semibold text-red-400 select-none">Image</span>
                     {% endif %}
                 </div>
                 <div class="flex flex-col justify-center">
@@ -61,107 +61,106 @@
 </section>
 
 <script>
-    (function(){
-        const form = document.getElementById('addComponentForm');
-        const grid = document.getElementById('componentsGrid');
+(function() {
+    const form = document.getElementById('addComponentForm');
+    const grid = document.getElementById('componentsGrid');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-            const formData = new FormData(form);
-            fetch('', {
+        const formData = new FormData(form);
+        try {
+            const response = await fetch('{% url "components:add_component" %}', {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}'
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const card = createComponentCard(
-                        data.name,
-                        data.quantity,
-                        data.image
-                    );
-                    grid.insertBefore(card, grid.firstChild);
-                    form.reset();
-                    alert('Комплектующее успешно добавлено!');
-                    loadComponents();
-                } else {
-                    alert('Ошибка при добавлении комплектующего. Проверьте данные.');
-                }
-            })
-            .catch(error => alert('Произошла ошибка: ' + error));
-        });
-
-        function createComponentCard(name, quantity, imageUrl) {
-            const card = document.createElement('a');
-            card.href = `{% url 'components:component_detail' 0 %}`.replace('0', '');
-            card.className = 'block';
-            card.innerHTML = `
-                <div class="flex max-w-xs space-x-3 rounded-lg border border-red-200 bg-white p-4 shadow-md transition hover:shadow-lg">
-                    <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-md bg-red-100">
-                        ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(name)}" class="h-full w-full rounded-md object-cover">` : '<span class="select-none text-sm font-semibold text-red-400">Image</span>'}
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <h3 class="text-base font-semibold text-red-800">${escapeHtml(name)}</h3>
-                        <p class="text-sm text-red-700">Количество: ${parseInt(quantity, 10)}</p>
-                    </div>
-                </div>
-            `;
-            return card;
+            });
+            const data = await response.json();
+            if (data.success) {
+                const card = createComponentCard(
+                    data.name,
+                    data.quantity,
+                    data.image,
+                    data.pk
+                );
+                grid.insertBefore(card, grid.firstChild);
+                form.reset();
+                alert('Комплектующее успешно добавлено!');
+                await loadComponents();
+            } else {
+                alert('Ошибка при добавлении комплектующего: ' + (data.error || 'Проверьте данные.'));
+            }
+        } catch (error) {
+            alert('Произошла ошибка: ' + error.message);
         }
+    });
 
-        function loadComponents() {
-            fetch('{% url "home" %}', {
+    function createComponentCard(name, quantity, imageUrl, pk) {
+        const card = document.createElement('a');
+        card.href = `{% url 'components:component_detail' 0 %}`.replace('0', pk);
+        card.className = 'block';
+        card.innerHTML = `
+            <div class="flex max-w-xs space-x-3 rounded-lg border border-red-200 bg-white p-4 shadow-md transition hover:shadow-lg">
+                <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-md bg-red-100">
+                    ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(name)}" class="h-full w-full rounded-md object-cover">` : '<span class="text-sm font-semibold text-red-400 select-none">Image</span>'}
+                </div>
+                <div class="flex flex-col justify-center">
+                    <h3 class="text-base font-semibold text-red-800">${escapeHtml(name)}</h3>
+                    <p class="text-sm text-red-700">Количество: ${parseInt(quantity, 10)}</p>
+                </div>
+            </div>
+        `;
+        return card;
+    }
+
+    async function loadComponents() {
+        try {
+            const response = await fetch('{% url "components:component_list" %}', {
                 method: 'GET',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                grid.innerHTML = '';
+            });
+            const data = await response.json();
+            grid.innerHTML = '';
+            if (data.components && data.components.length > 0) {
                 data.components.forEach(component => {
                     const card = createComponentCard(
                         component.name,
                         component.quantity,
-                        component.image
+                        component.image,
+                        component.pk
                     );
-                    card.href = card.href.replace('', `{% url 'components:component_detail' 0 %}`.replace('0', component.pk));
                     grid.appendChild(card);
                 });
-                if (data.components.length === 0) {
-                    grid.innerHTML = `
-                        <div class="rounded-lg border border-red-200 bg-white p-6 text-center shadow-md">
-                            <p class="text-lg text-red-800">Комплектующие не найдены.</p>
-                        </div>
-                    `;
-                }
-            })
-            .catch(error => console.error('Ошибка при загрузке комплектующих:', error));
+            } else {
+                grid.innerHTML = `
+                    <div class="rounded-lg border border-red-200 bg-white p-6 text-center shadow-md">
+                        <p class="text-lg text-red-800">Комплектующие не найдены.</p>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('Ошибка при загрузке комплектующих:', error);
         }
+    }
 
-        window.addEventListener('pageshow', function() {
-            loadComponents();
+    window.addEventListener('pageshow', loadComponents);
+    document.addEventListener('DOMContentLoaded', loadComponents);
+
+    function escapeHtml(text) {
+        return text.replace(/[&<>"']/g, function(m) {
+            return ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[m];
         });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            loadComponents();
-        });
-
-        function escapeHtml(text) {
-            return text.replace(/[&<>"']/g, function(m) {
-                return ({
-                    '&': '&',
-                    '<': '<',
-                    '>': '>',
-                    '"': '"',
-                    "'": '''
-                })[m];
-            });
-        }
-    })();
+    }
+})();
 </script>
 {% endblock %}

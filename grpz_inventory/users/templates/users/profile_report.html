@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            color: #dc2626;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        h2 {
+            color: #dc2626;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #dc2626;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #fee2e2;
+        }
+
+        .no-components {
+            font-style: italic;
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <h1>Отчёт по профилю пользователя</h1>
+    <h2>Информация о пользователе</h2>
+    <table>
+        <tr><th>Поле</th><th>Значение</th></tr>
+        <tr><td>Имя пользователя</td><td>{{ user.username }}</td></tr>
+        <tr><td>Email</td><td>{{ user.email|default:"Не указан" }}</td></tr>
+        <tr><td>Дата регистрации</td><td>{{ user.date_joined|date:"d.m.Y H:i" }}</td></tr>
+    </table>
+
+    <h2>Детали (Компоненты)</h2>
+    {% if components %}
+    <table>
+        <tr><th>Название</th><th>Количество</th><th>Изображение</th></tr>
+        {% for component in components %}
+        <tr>
+            <td>{{ component.name }}</td>
+            <td>{{ component.quantity }}</td>
+            <td>{% if component.image %}{{ component.image.url }}{% else %}Изображение отсутствует{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p class="no-components">У пользователя пока нет компонентов.</p>
+    {% endif %}
+</body>
+</html>

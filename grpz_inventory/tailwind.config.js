@@ -1,7 +1,8 @@
-npx tailwindcss initmodule.exports = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
     content: [
-        './static/css/styles.css',
-        './**/templates/**/*.html', // Обновлённый паттерн для всех приложений
+        './**/templates/**/*.html', // все шаблоны Django
+        './static/css/input.css',   // исходный Tailwind файл
     ],
     theme: {
         extend: {},

@@ -1,11 +1,29 @@
-﻿from django.shortcuts import render, redirect
+﻿from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, get_user_model
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
 from .forms import CustomUserCreationForm
 from orders.models import Order
 from components.models import Component
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from django import forms
+
+# Получаем кастомную модель пользователя
+User = get_user_model()
+
+# Проверка, является ли пользователь администратором
+def is_admin(user):
+    return user.is_staff or user.is_superuser
+
+# Форма для редактирования пользователя
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff']
 
 def register(request):
     if request.method == 'POST':
@@ -33,63 +51,90 @@ def profile(request):
 def download_profile_report(request):
     user = request.user
     components = Component.objects.filter(orderitem__order__created_by=user).distinct()
+    orders = Order.objects.filter(created_by=user).prefetch_related('orderitem_set')
 
-    # Генерация LaTeX-кода
-    latex_content = r"""
-    \documentclass[a4paper,12pt]{article}
-    \usepackage[utf8]{inputenc}
-    \usepackage[russian]{babel}
-    \usepackage{geometry}
-    \geometry{margin=1in}
-    \usepackage{array}
-    \usepackage{booktabs}
-
-    \begin{document}
-
-    \begin{center}
-        \Huge{\textbf{Отчёт по профилю пользователя}}
-        \vspace{0.5cm}
-        \Large{\textbf{GRPZ Inventory}}
-    \end{center}
-
-    \section*{Информация о пользователе}
-    \begin{tabular}{ll}
-        \toprule
-        \textbf{Поле} & \textbf{Значение} \\
-        \midrule
-        Имя пользователя & """ + user.username + r""" \\
-        Email & """ + (user.email if user.email else "Не указан") + r""" \\
-        Дата регистрации & """ + user.date_joined.strftime("%d.%m.%Y %H:%M") + r""" \\
-        \bottomrule
-    \end{tabular}
-
-    \section*{Детали (Компоненты)}
-    """
-    
-    if not components:
-        latex_content += r"\textit{У пользователя пока нет компонентов.}" + "\n"
-    else:
-        latex_content += r"""
-        \begin{center}
-            \begin{tabular}{|m{5cm}|m{3cm}|m{5cm}|}
-                \hline
-                \textbf{Название} & \textbf{Количество} & \textbf{Изображение} \\
-                \hline
-        """
-        for component in components:
-            image_info = component.image.url if component.image else "Изображение отсутствует"
-            latex_content += r"            " + component.name.replace("&", r"\&") + r" & " + str(component.quantity) + r" & " + image_info.replace("&", r"\&").replace("_", r"\_") + r" \\ \hline" + "\n"
-        latex_content += r"""
-            \end{tabular}
-        \end{center}
-        """
-
-    latex_content += r"""
-    \end{document}
-    """
-
-    # Возвращаем LaTeX-код как PDF
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="profile_report_{user.username}.pdf"'
-    response.write(latex_content.encode('utf8'))
+
+    p = canvas.Canvas(response, pagesize=A4)
+    
+    try:
+        pdfmetrics.registerFont(TTFont('Arial', 'C:/Windows/Fonts/arial.ttf'))
+        p.setFont('Arial', 12)
+    except Exception as e:
+        return HttpResponse(f"Ошибка загрузки шрифта: {str(e)}", status=500)
+
+    p.drawString(100, 800, "Отчёт по профилю пользователя")
+    p.drawString(100, 780, f"Пользователь: {user.username}")
+    p.drawString(100, 760, f"Email: {user.email if user.email else 'Не указан'}")
+    p.drawString(100, 740, f"Дата регистрации: {user.date_joined.strftime('%d.%m.%Y %H:%M')}")
+
+    y = 700
+    p.drawString(100, y, "Компоненты:")
+    y -= 20
+    if components:
+        for component in components:
+            p.drawString(100, y, f"Название: {component.name}, Количество: {component.quantity}")
+            y -= 20
+            if y < 100:
+                p.showPage()
+                p.setFont('Arial', 12)
+                y = 800
+    else:
+        p.drawString(100, y, "Компоненты отсутствуют")
+        y -= 20
+
+    y -= 20
+    p.drawString(100, y, "Заказы:")
+    y -= 20
+    if orders:
+        for order in orders:
+            order_info = f"Заказ #{order.id} от {order.order_date.strftime('%d.%m.%Y %H:%M')} (Поставщик: {order.supplier})"
+            p.drawString(100, y, order_info)
+            y -= 20
+            if y < 100:
+                p.showPage()
+                p.setFont('Arial', 12)
+                y = 800
+    else:
+        p.drawString(100, y, "Заказы отсутствуют")
+        y -= 20
+
+    p.showPage()
+    p.save()
     return response
+
+@login_required
+@user_passes_test(is_admin)
+def user_list(request):
+    users = User.objects.all().order_by('username')
+    return render(request, 'users/admin/user_list.html', {'users': users})
+
+@login_required
+@user_passes_test(is_admin)
+def user_edit(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Пользователь {user.username} успешно обновлён.')
+            return redirect('users:user_list')
+        else:
+            messages.error(request, 'Ошибка при обновлении пользователя.')
+    else:
+        form = UserEditForm(instance=user)
+    return render(request, 'users/admin/user_edit.html', {'form': form, 'user': user})
+
+@login_required
+@user_passes_test(is_admin)
+def user_delete(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        if user != request.user:
+            user.delete()
+            messages.success(request, f'Пользователь {user.username} удалён.')
+        else:
+            messages.error(request, 'Нельзя удалить самого себя.')
+        return redirect('users:user_list')
+    return render(request, 'users/admin/user_delete.html', {'user': user})
