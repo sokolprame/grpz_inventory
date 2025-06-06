@@ -1,166 +1,220 @@
 ﻿{% extends 'base.html' %}
-
 {% block title %}GRPZ Inventory{% endblock %}
-
 {% block content %}
-<section>
-    <h2 class="mb-4 text-2xl font-semibold text-black">Панель управления</h2>
-    <p class="max-w-3xl text-lg">Здесь вы можете вести учет и управление комплектующими на вашем складе.</p>
+<section class="container mx-auto px-4 py-8">
+    <h2 class="mb-6 border-b-2 border-red-500 pb-2 text-3xl font-bold text-gray-800">Панель управления</h2>
+    <p class="max-w-2xl text-lg leading-relaxed text-gray-600">Здесь вы можете вести учет и управление комплектующими на вашем складе с удобным интерфейсом и актуальными данными.</p>
     {% if user.is_authenticated %}
-    <div class="mt-6 flex space-x-4">
-        <a href="{% url 'components:component_list' %}" class="rounded-md border border-red-500 px-5 py-2 font-semibold text-red-800 transition hover:bg-red-500 hover:text-white">Перейти к комплектующим</a>
-        <a href="{% url 'warehouses:warehouse_list' %}" class="rounded-md border border-red-500 px-5 py-2 font-semibold text-red-800 transition hover:bg-red-500 hover:text-white">Перейти к складам</a>
+    <div class="mt-8 flex flex-wrap gap-4">
+        <a href="{% url 'components:component_list' %}" class="rounded-lg bg-red-100 px-6 py-3 font-semibold text-red-800 transition-all duration-300 hover:bg-red-200 hover:shadow-md">Перейти к комплектующим</a>
+        <a href="{% url 'warehouses:warehouse_list' %}" class="rounded-lg bg-red-100 px-6 py-3 font-semibold text-red-800 transition-all duration-300 hover:bg-red-200 hover:shadow-md">Перейти к складам</a>
     </div>
     {% endif %}
 </section>
 
-<section>
-    <h2 class="mb-4 text-2xl font-semibold text-black">Список комплектующих</h2>
-    <div id="componentsGrid" class="grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+<section class="container mx-auto px-4 py-8">
+    <h2 class="mb-6 border-b-2 border-red-500 pb-2 text-3xl font-bold text-gray-800">Список комплектующих</h2>
+    <div id="componentsGrid" class="grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {% if not recent_components %}
+        <div id="loadingIndicator" class="col-span-full py-4 text-center text-red-800">Загрузка...</div>
+        {% endif %}
         {% for component in recent_components %}
-        <a href="{% url 'components:component_detail' component.pk %}" class="block">
-            <div class="flex max-w-xs space-x-3 rounded-lg border border-red-200 bg-white p-4 shadow-md transition hover:shadow-lg">
-                <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-md bg-red-100">
-                    {% if component.image %}
-                    <img src="{{ component.image.url }}" alt="{{ component.name }}" class="h-full w-full rounded-md object-cover">
-                    {% else %}
-                    <span class="text-sm font-semibold text-red-400 select-none">Image</span>
-                    {% endif %}
+        <a href="{% url 'components:component_detail' component.pk %}" class="block transform transition-all duration-300 hover:scale-105">
+            <div class="flex max-w-xs flex-col overflow-hidden rounded-xl border border-red-100 bg-white p-5 shadow-lg hover:border-red-300">
+                <div class="mb-4 h-20 w-full flex-shrink-0">
+                    <div class="bg-gradient-to-br flex h-full w-full items-center justify-center rounded-md from-red-50 to-red-100">
+                        {% if component.image %}
+                        <img src="{{ component.image.url }}" alt="{{ component.name }}" class="h-full w-full rounded-md object-cover">
+                        {% else %}
+                        <span class="text-sm font-semibold text-red-400 select-none">Image</span>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="flex flex-col justify-center">
-                    <h3 class="text-base font-semibold text-red-800">{{ component.name }}</h3>
-                    <p class="text-sm text-red-700">Количество: {{ component.quantity }}</p>
+                <div class="flex flex-1 flex-col justify-between">
+                    <div>
+                        <h3 class="mb-2 text-lg font-semibold text-red-800">{{ component.name }}</h3>
+                        <p class="mb-1 text-sm text-red-600">Арт.: {{ component.part_number }}</p>
+                        <p class="mb-1 text-sm text-red-600">Кол-во: {{ component.quantity }}</p>
+                        <p class="text-sm text-red-600">Склад: {{ component.warehouse.name|default:"Не указан" }}</p>
+                    </div>
                 </div>
             </div>
         </a>
         {% empty %}
-        <div class="rounded-lg border border-red-200 bg-white p-6 text-center shadow-md">
-            <p class="text-lg text-red-800">Комплектующие не найдены.</p>
+        <div class="col-span-full rounded-lg border border-red-100 bg-white p-6 text-center shadow-md">
+            <p class="text-xl text-red-800">Комплектующие не найдены.</p>
         </div>
         {% endfor %}
     </div>
 </section>
 
-<section>
-    <h2 class="mb-4 text-2xl font-semibold text-black">Добавить комплектующее</h2>
-    <form id="addComponentForm" method="post" enctype="multipart/form-data" aria-label="Форма для добавления комплектующего" class="max-w-3xl space-y-6 rounded-lg border border-red-200 bg-white p-6 shadow-md">
+<section class="container mx-auto px-4 py-8">
+    <h2 class="mb-6 border-b-2 border-red-500 pb-2 text-3xl font-bold text-gray-800">Добавить комплектующее</h2>
+    <form id="addComponentForm" method="post" enctype="multipart/form-data" aria-label="Форма для добавления комплектующего" class="mx-auto max-w-2xl space-y-4 rounded-xl border border-red-100 bg-white p-6 shadow-md">
         {% csrf_token %}
         {% for field in form %}
-        <div>
-            <label for="{{ field.id_for_label }}" class="mb-2 block text-lg font-semibold text-red-800">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-            <p class="mt-1 text-sm text-red-800">{{ field.errors.as_text }}</p>
-            {% endif %}
+        <div class="flex flex-col">
+            <label for="{{ field.id_for_label }}" class="mb-2 text-base font-medium text-red-800">{{ field.label }}</label>
+            <div class="relative">
+                {{ field }}
+                {% if field.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ field.errors.as_text }}</p>
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
-        <button type="submit" class="w-full rounded-md bg-red-700 py-3 text-lg font-bold text-white transition hover:bg-red-800">
+        <button type="submit" class="bg-gradient-to-r w-full rounded-lg from-red-600 to-red-700 py-3 text-lg font-bold text-white transition-all duration-300 hover:from-red-700 hover:to-red-800 hover:shadow-lg">
             Добавить
         </button>
     </form>
 </section>
 
 <script>
-(function() {
-    const form = document.getElementById('addComponentForm');
-    const grid = document.getElementById('componentsGrid');
+    (function () {
+        const form = document.getElementById('addComponentForm');
+        const grid = document.getElementById('componentsGrid');
+        const loadingIndicator = document.getElementById('loadingIndicator');
 
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(form);
-        try {
-            const response = await fetch('{% url "components:add_component" %}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
-            });
-            const data = await response.json();
-            if (data.success) {
-                const card = createComponentCard(
-                    data.name,
-                    data.quantity,
-                    data.image,
-                    data.pk
-                );
-                grid.insertBefore(card, grid.firstChild);
-                form.reset();
-                alert('Комплектующее успешно добавлено!');
-                await loadComponents();
-            } else {
-                alert('Ошибка при добавлении комплектующего: ' + (data.error || 'Проверьте данные.'));
             }
-        } catch (error) {
-            alert('Произошла ошибка: ' + error.message);
+            return cookieValue;
         }
-    });
+        const csrftoken = getCookie('csrftoken');
 
-    function createComponentCard(name, quantity, imageUrl, pk) {
-        const card = document.createElement('a');
-        card.href = `{% url 'components:component_detail' 0 %}`.replace('0', pk);
-        card.className = 'block';
-        card.innerHTML = `
-            <div class="flex max-w-xs space-x-3 rounded-lg border border-red-200 bg-white p-4 shadow-md transition hover:shadow-lg">
-                <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-md bg-red-100">
-                    ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(name)}" class="h-full w-full rounded-md object-cover">` : '<span class="text-sm font-semibold text-red-400 select-none">Image</span>'}
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&")
+                .replace(/</g, "<")
+                .replace(/>/g, ">")
+                .replace(/"/g, """)
+                    .replace(/'/g, "'");
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            try {
+                const response = await fetch('{% url "components:add" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    }
+                });
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! Status: ${response.status}, Response: ${errorText}`);
+                }
+                const data = await response.json();
+                if (data.success) {
+                    const card = createComponentCard(data.name, data.quantity, data.image, data.pk);
+                    grid.insertBefore(card, grid.firstChild);
+                    form.reset();
+                    alert('Комплектующее успешно добавлено!');
+                    await loadComponents();
+                } else {
+                    alert('Ошибка при добавлении комплектующего: ' + (data.error || 'Проверьте данные.'));
+                }
+            } catch (error) {
+                console.error('Ошибка при добавлении:', error);
+                alert('Произошла ошибка: ' + error.message);
+            }
+        });
+
+        function createComponentCard(name, quantity, imageUrl, pk) {
+            const card = document.createElement('a');
+            card.href = `{% url 'components:component_detail' 0 %}`.replace('0', pk);
+            card.className = 'block transform transition-all duration-300 hover:scale-105';
+            card.innerHTML = `
+            <div class="flex max-w-xs flex-col overflow-hidden rounded-xl border border-red-100 bg-white p-5 shadow-lg hover:border-red-300">
+                <div class="mb-4 h-20 w-full flex-shrink-0">
+                    <div class="bg-gradient-to-br flex h-full w-full items-center justify-center rounded-md from-red-50 to-red-100">
+                        ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(name)}" class="h-full w-full rounded-md object-cover">` : '<span class="text-sm font-semibold text-red-400 select-none">Image</span>'}
+                    </div>
                 </div>
-                <div class="flex flex-col justify-center">
-                    <h3 class="text-base font-semibold text-red-800">${escapeHtml(name)}</h3>
-                    <p class="text-sm text-red-700">Количество: ${parseInt(quantity, 10)}</p>
+                <div class="flex flex-1 flex-col justify-between">
+                    <div>
+                        <h3 class="mb-2 text-lg font-semibold text-red-800">${escapeHtml(name)}</h3>
+                        <p class="mb-1 text-sm text-red-600">Количество: ${parseInt(quantity, 10)}</p>
+                    </div>
                 </div>
             </div>
         `;
-        return card;
-    }
+            return card;
+        }
 
-    async function loadComponents() {
-        try {
-            const response = await fetch('{% url "components:component_list" %}', {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-            const data = await response.json();
-            grid.innerHTML = '';
-            if (data.components && data.components.length > 0) {
-                data.components.forEach(component => {
-                    const card = createComponentCard(
-                        component.name,
-                        component.quantity,
-                        component.image,
-                        component.pk
-                    );
-                    grid.appendChild(card);
+        async function loadComponents() {
+            try {
+                loadingIndicator.style.display = 'block';
+                console.log('Запрос к:', '{% url "components:component_list" %}');
+                const response = await fetch('{% url "components:component_list" %}', {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
                 });
-            } else {
-                grid.innerHTML = `
-                    <div class="rounded-lg border border-red-200 bg-white p-6 text-center shadow-md">
-                        <p class="text-lg text-red-800">Комплектующие не найдены.</p>
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! Status: ${response.status}, Response: ${errorText}`);
+                }
+                const data = await response.json();
+                console.log('Данные из API:', data);
+                grid.innerHTML = '';
+                if (data.components && data.components.length > 0) {
+                    data.components.forEach(component => {
+                        const card = document.createElement('a');
+                        card.href = `{% url "components:component_detail" 0 %}`.replace('0', component.pk);
+                        card.className = 'block transform transition-all duration-300 hover:scale-105';
+                        card.innerHTML = `
+                        <div class="flex max-w-xs flex-col overflow-hidden rounded-xl border border-red-100 bg-white p-5 shadow-lg hover:border-red-300">
+                            <div class="mb-4 h-20 w-full flex-shrink-0">
+                                <div class="bg-gradient-to-br flex h-full w-full items-center justify-center rounded-md from-red-50 to-red-100">
+                                    ${component.image ? `<img src="${component.image}" alt="${component.name}" class="h-full w-full rounded-md object-cover">` : '<span class="text-sm font-semibold text-red-400 select-none">Image</span>'}
+                                </div>
+                            </div>
+                            <div class="flex flex-1 flex-col justify-between">
+                                <div>
+                                    <h3 class="mb-2 text-lg font-semibold text-red-800">${component.name}</h3>
+                                    <p class="mb-1 text-sm text-red-600">Арт.: ${component.part_number}</p>
+                                    <p class="mb-1 text-sm text-red-600">Кол-во: ${component.quantity}</p>
+                                    <p class="text-sm text-red-600">Склад: ${component.warehouse || 'Не указан'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                        grid.appendChild(card);
+                    });
+                } else {
+                    grid.innerHTML = `
+                    <div class="col-span-full rounded-lg border border-red-100 bg-white p-6 text-center shadow-md">
+                        <p class="text-xl text-red-800">Комплектующие не найдены.</p>
                     </div>
                 `;
+                }
+            } catch (error) {
+                console.error('Ошибка при загрузке комплектующих:', error);
+                grid.innerHTML = `
+                <div class="col-span-full rounded-lg border border-red-100 bg-white p-6 text-center shadow-md">
+                    <p class="text-xl text-red-800">Ошибка: ${error.message}</p>
+                </div>
+            `;
+            } finally {
+                loadingIndicator.style.display = 'none';
             }
-        } catch (error) {
-            console.error('Ошибка при загрузке комплектующих:', error);
         }
-    }
 
-    window.addEventListener('pageshow', loadComponents);
-    document.addEventListener('DOMContentLoaded', loadComponents);
-
-    function escapeHtml(text) {
-        return text.replace(/[&<>"']/g, function(m) {
-            return ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#39;'
-            })[m];
-        });
-    }
-})();
+        document.addEventListener('DOMContentLoaded', loadComponents);
+    })();
 </script>
 {% endblock %}

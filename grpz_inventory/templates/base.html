@@ -1,15 +1,34 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}GRPZ Inventory{% endblock %}</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}" />
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px; /* примерная высота шапки */
+            z-index: 1000;
+        }
+
+        main {
+            padding-top: 64px; /* отступ сверху равен высоте шапки */
+        }
+    </style>
 </head>
-<body class="flex min-h-screen flex-col bg-white font-sans text-red-800">
-    <header class="bg-gradient-to-r flex flex-shrink-0 items-center justify-between from-red-800 to-red-500 px-8 py-4 text-white select-none">
+<body>
+    <header class="bg-gradient-to-r flex items-center justify-between from-red-800 to-red-500 px-8 py-4 text-white select-none">
         <a href="{% url 'home' %}" class="text-xl font-extrabold">GRPZ Inventory</a>
         <nav class="flex space-x-4">
             {% if user.is_authenticated %}
@@ -26,7 +45,7 @@
             {% endif %}
         </nav>
     </header>
-    <main class="mx-auto w-full max-w-7xl flex-1 overflow-y-auto bg-white px-12 py-0">
+    <main class="mx-auto w-full max-w-7xl flex-1 px-12">
         {% for message in messages %}
         <div class="p-4 mb-4 rounded-lg shadow-md border border-red-200 flex items-center {% if message.tags == 'error' %} bg-red-50 text-red-800 {% else %} bg-green-50 text-green-800 {% endif %}">
             <span>{{ message }}</span>
@@ -34,7 +53,7 @@
         {% endfor %}
         {% block content %}{% endblock %}
     </main>
-    <footer class="bg-gradient-to-r flex-shrink-0 from-red-800 to-red-500 py-4 text-center text-base text-white select-none">
+    <footer class="bg-gradient-to-r from-red-800 to-red-500 py-4 text-center text-base text-white select-none">
         © 2025 GRPZ Inventory. Все права защищены.
     </footer>
 </body>

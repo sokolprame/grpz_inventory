@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'warehouses',
     'suppliers',
     'orders',
+    'theme',
+    'tailwind',
     'stock_operations',
     'audit',
 ]
@@ -128,3 +130,5 @@ LOGIN_REDIRECT_URL = 'home'  # Перенаправление после входа
 LOGIN_URL = 'login'  # URL для входа (если пользователь не авторизован)
 LOGOUT_REDIRECT_URL = 'home'  # Перенаправление после выхода
 
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"

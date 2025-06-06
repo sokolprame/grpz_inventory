@@ -30,6 +30,9 @@
 .mx-auto {
   margin-inline: auto;
 }
+.ml-auto {
+  margin-left: auto;
+}
 .\!hidden {
   display: none !important;
 }
@@ -77,6 +80,9 @@
 }
 .flex-1 {
   flex: 1;
+}
+.flex-shrink {
+  flex-shrink: 1;
 }
 .flex-shrink-0 {
   flex-shrink: 0;

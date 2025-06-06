@@ -1,26 +1,21 @@
-import { defineConfig } from 'vite';
+п»їimport { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/postcss';
 import autoprefixer from 'autoprefixer';
 
 export default defineConfig({
     build: {
         outDir: 'static/dist',
-        assetsDir: '',
-        emptyOutDir: true,
-        manifest: true,
         rollupOptions: {
-            input: { main: './static/css/styles.css' }, // Изменено с main2 на main
+            input: 'static/js/main.js',
             output: {
-                entryFileNames: '[name].css', // Теперь создаст main.css
-                assetFileNames: '[name].[ext]',
-            },
-        },
+                entryFileNames: '[name].js', // РРјСЏ РґР»СЏ JS-С„Р°Р№Р»РѕРІ (main.js)
+                assetFileNames: 'styles.css' // РРјСЏ РґР»СЏ CSS-С„Р°Р№Р»РѕРІ
+            }
+        }
     },
     css: {
         postcss: {
-            plugins: [tailwindcss(), autoprefixer()],
-        },
-    },
-    root: './',
-    server: { watch: { usePolling: true } },
+            plugins: [tailwindcss(), autoprefixer()]
+        }
+    }
 });
