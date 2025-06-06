@@ -132,3 +132,6 @@ LOGOUT_REDIRECT_URL = 'home'  # Перенаправление после выхода
 
 TAILWIND_APP_NAME = 'theme'
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+MEDIA_URL = '/media/'  # URL, под которым будут доступны медиа-файлы (например, /media/)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Абсолютный путь к папке media

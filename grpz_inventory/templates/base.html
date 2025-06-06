@@ -11,6 +11,13 @@
         html, body {
             margin: 0;
             padding: 0;
+            height: 100%; /* Устанавливаем высоту 100% для html и body */
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* Используем Flexbox для вертикального расположения */
+            min-height: 100vh; /* Минимальная высота равна высоте viewport */
         }
 
         header {
@@ -18,12 +25,17 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 64px; /* примерная высота шапки */
+            height: 64px; /* Примерная высота шапки */
             z-index: 1000;
         }
 
         main {
-            padding-top: 64px; /* отступ сверху равен высоте шапки */
+            padding-top: 64px; /* Отступ сверху равен высоте шапки */
+            flex: 1 0 auto; /* Растягиваем main, чтобы он занимал всё доступное пространство */
+        }
+
+        footer {
+            flex-shrink: 0; /* Убедимся, что футер не сжимается */
         }
     </style>
 </head>
@@ -54,7 +66,14 @@
         {% block content %}{% endblock %}
     </main>
     <footer class="bg-gradient-to-r from-red-800 to-red-500 py-4 text-center text-base text-white select-none">
-        © 2025 GRPZ Inventory. Все права защищены.
+        <div class="container mx-auto px-4">
+            <p>© 2025 GRPZ Inventory. Все права защищены.</p>
+            <div class="mt-2 space-x-4">
+                <a href="#" class="text-white hover:underline">О нас</a>
+                <a href="#" class="text-white hover:underline">Контакты</a>
+                <a href="#" class="text-white hover:underline">Политика конфиденциальности</a>
+            </div>
+        </div>
     </footer>
 </body>
 </html>

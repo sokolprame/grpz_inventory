@@ -16,3 +16,4 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     path('users/', include('users.urls', namespace='users')),  # Все пользовательские маршруты здесь
 ]
+
