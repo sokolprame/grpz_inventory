@@ -1,0 +1,15 @@
+﻿services:
+  - type: web
+    name: grpz-inventory
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn grpz_inventory.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: grpz_inventory.settings
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False

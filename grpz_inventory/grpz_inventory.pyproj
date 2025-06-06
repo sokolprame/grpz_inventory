@@ -742,6 +742,7 @@
     <Content Include="components\templates\components\list.html" />
     <Content Include="orders\templates\orders\order_form.html" />
     <Content Include="postcss.config.js" />
+    <Content Include="render.yaml" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
