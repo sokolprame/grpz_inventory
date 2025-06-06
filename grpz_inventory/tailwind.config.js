@@ -1,13 +1,13 @@
-module.exports = {
+п»їmodule.exports = {
     content: [
-        './templates/**/*.html', // Все HTML-шаблоны в корневой папке templates
-        './users/templates/**/*.html', // Шаблоны в приложении users
-        './components/templates/**/*.html', // Шаблоны в приложении components
-        './warehouses/templates/**/*.html', // Шаблоны в приложении warehouses
-        './orders/templates/**/*.html', // Шаблоны в приложении orders
-        './suppliers/templates/**/*.html', // Шаблоны в приложении suppliers
-        './stock_operations/templates/**/*.html', // Шаблоны в приложении stock_operations
-        './audit/templates/**/*.html', // Шаблоны в приложении audit
+        './templates/**/*.html', // Р’СЃРµ HTML-С€Р°Р±Р»РѕРЅС‹ РІ РєРѕСЂРЅРµРІРѕР№ РїР°РїРєРµ templates
+        './users/templates/**/*.html', // РЁР°Р±Р»РѕРЅС‹ РІ РїСЂРёР»РѕР¶РµРЅРёРё users
+        './components/templates/**/*.html', // РЁР°Р±Р»РѕРЅС‹ РІ РїСЂРёР»РѕР¶РµРЅРёРё components
+        './warehouses/templates/**/*.html', // РЁР°Р±Р»РѕРЅС‹ РІ РїСЂРёР»РѕР¶РµРЅРёРё warehouses
+        './orders/templates/**/*.html', // РЁР°Р±Р»РѕРЅС‹ РІ РїСЂРёР»РѕР¶РµРЅРёРё orders
+        './suppliers/templates/**/*.html', // РЁР°Р±Р»РѕРЅС‹ РІ РїСЂРёР»РѕР¶РµРЅРёРё suppliers
+        './stock_operations/templates/**/*.html', // РЁР°Р±Р»РѕРЅС‹ РІ РїСЂРёР»РѕР¶РµРЅРёРё stock_operations
+        './audit/templates/**/*.html', // РЁР°Р±Р»РѕРЅС‹ РІ РїСЂРёР»РѕР¶РµРЅРёРё audit
         './static/js/**/*.js'
     ],
     theme: {
