@@ -3,24 +3,26 @@
 {% block title %}Регистрация - GRPZ Inventory{% endblock %}
 
 {% block content %}
-<section>
-    <h2 class="mb-4 text-2xl font-semibold text-black">Регистрация</h2>
-    <div class="mx-auto max-w-md">
+<section class="flex min-h-screen items-center justify-center bg-gray-100">
+    <div class="w-full max-w-md">
+        <h2 class="mb-4 text-center text-2xl font-semibold text-black">Регистрация</h2>
         <div class="rounded-[0.5rem] border border-red-200 bg-white p-8 shadow-lg">
             <div class="mb-6 flex items-center justify-center">
-                <svg class="mr-3 h-8 w-8 text-[#dc2626]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                <svg class="mr-3 h-8 w-8 text-[#dc2626]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                </svg>
                 <h1 class="text-2xl font-bold text-red-800">Регистрация</h1>
             </div>
             <form method="post" class="space-y-6">
                 {% csrf_token %}
                 {% for field in form %}
-                <div>
+                <div class="text-center">
                     <label for="{{ field.id_for_label }}" class="mb-1 block text-sm font-medium text-red-800">{{ field.label }}</label>
                     <div class="relative">
                         <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}"
                                class="block w-full rounded-[0.5rem] border-red-300 pl-10 text-lg shadow-sm focus:border-[#dc2626] focus:ring-[#dc2626]"
                                {% if field.value %}value="{{ field.value }}" {% endif %}>
-                        <svg class="-translate-y-1/2 absolute left-3 top-1/2 h-5 w-5 transform text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             {% if field.label == "Имя пользователя" %}
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             {% elif field.label == "Email" %}
@@ -42,7 +44,9 @@
                 </div>
                 {% endfor %}
                 <button type="submit" class="flex w-full items-center justify-center rounded-[0.5rem] bg-red-700 px-6 py-3 font-semibold text-white transition hover:bg-red-800">
-                    <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.104-.896 2-2 2s-2-.896-2-2 2-4 2-4 2 2.896 2 4zm0 0c0 1.104-.896 2-2 2s-2-.896-2-2 2-4 2-4 2 2.896 2 4zm0 0c0 1.104-.896 2-2 2s-2-.896-2-2 2-4 2-4 2 2.896 2 4z"></path></svg>
+                    <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.104-.896 2-2 2s-2-.896-2-2 2-4 2-4 2 2.896 2 4zm0 0c0 1.104-.896 2-2 2s-2-.896-2-2 2-4 2-4 2 2.896 2 4zm0 0c0 1.104-.896 2-2 2s-2-.896-2-2 2-4 2-4 2 2.896 2 4z"></path>
+                    </svg>
                     Зарегистрироваться
                 </button>
             </form>

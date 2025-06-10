@@ -740,6 +740,7 @@
     <Content Include="components\templates\components\add.html" />
     <Content Include="components\templates\components\detail.html" />
     <Content Include="components\templates\components\list.html" />
+    <Content Include="fixtures.json" />
     <Content Include="orders\templates\orders\order_form.html" />
     <Content Include="postcss.config.js" />
     <Content Include="render.yaml" />

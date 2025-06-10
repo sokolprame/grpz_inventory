@@ -1,0 +1,884 @@
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "ipetrov",
+            "first_name": "Иван",
+            "last_name": "Петров",
+            "email": "ivan.petrov@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-01T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "mivanova",
+            "first_name": "Мария",
+            "last_name": "Иванова",
+            "email": "maria.ivanova@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-02T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "jsmith",
+            "first_name": "Джон",
+            "last_name": "Смит",
+            "email": "john.smith@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-03T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "alee",
+            "first_name": "Анна",
+            "last_name": "Ли",
+            "email": "anna.lee@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-04T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "ajohnson",
+            "first_name": "Алекс",
+            "last_name": "Джонсон",
+            "email": "alex.johnson@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-05T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "epetrova",
+            "first_name": "Елена",
+            "last_name": "Петрова",
+            "email": "elena.petrova@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-06T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "mbrown",
+            "first_name": "Майкл",
+            "last_name": "Браун",
+            "email": "michael.brown@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-07T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 8,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "skim",
+            "first_name": "София",
+            "last_name": "Ким",
+            "email": "sophia.kim@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-08T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 9,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "dwilson",
+            "first_name": "Дэвид",
+            "last_name": "Уилсон",
+            "email": "david.wilson@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-09T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 10,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$dummy$hash",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "osmirnova",
+            "first_name": "Ольга",
+            "last_name": "Смирнова",
+            "email": "olga.smirnova@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-06-10T10:00:00",
+            "role": "manager",
+            "telegram_id": null,
+            "is_2fa_enabled": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 1,
+        "fields": {
+            "name": "ТехПоставка ООО",
+            "contact_info": "tech.supplies@example.com, +7-495-123-4567",
+            "terms": "Оплата в течение 30 дней"
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 2,
+        "fields": {
+            "name": "Глобал Детали",
+            "contact_info": "contact@globalparts.com, ул. Ленина 123, Москва",
+            "terms": "Поставка на условиях FOB"
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 3,
+        "fields": {
+            "name": "ЭлектроКомпоненты",
+            "contact_info": "sales@electrocomp.com, +7-812-987-6543",
+            "terms": "Оплата при доставке"
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 4,
+        "fields": {
+            "name": "Механика Решения",
+            "contact_info": "info@mechanicalsolutions.com, пр. Мира 45, Санкт-Петербург",
+            "terms": "Оплата в течение 60 дней"
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 5,
+        "fields": {
+            "name": "Крепёж Эксперт",
+            "contact_info": "orders@fastenersworld.com, +7-800-555-1234",
+            "terms": "Наличными при получении"
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 6,
+        "fields": {
+            "name": "Кабели и Провода",
+            "contact_info": "support@cableswires.com, Технопарк 7, Новосибирск",
+            "terms": "Предоплата обязательна"
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 7,
+        "fields": {
+            "name": "Инструменты Без Границ",
+            "contact_info": "sales@toolsunlimited.com, +7-383-456-7890",
+            "terms": "Оплата в течение 15 дней"
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 8,
+        "fields": {
+            "name": "Прецизионные Инструменты",
+            "contact_info": "contact@precisioninstruments.com, ул. Науки 32, Екатеринбург",
+            "terms": "FOB отправитель"
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 9,
+        "fields": {
+            "name": "Безопасность и Снаряжение",
+            "contact_info": "info@safetygear.com, +7-495-777-8888",
+            "terms": "Оплата в течение 7 дней"
+        }
+    },
+    {
+        "model": "suppliers.supplier",
+        "pk": 10,
+        "fields": {
+            "name": "Офисные Поставки",
+            "contact_info": "orders@officesupplies.com, Бизнес-центр 654, Казань",
+            "terms": "Кредитные условия доступны"
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 1,
+        "fields": {
+            "name": "Центральный Склад",
+            "address": "ул. Складская 123, Москва",
+            "responsible": 1,
+            "location": "Центр города",
+            "capacity": 5000
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 2,
+        "fields": {
+            "name": "Восточный Филиал",
+            "address": "Восточный пр. 456, Санкт-Петербург",
+            "responsible": 2,
+            "location": "Восточный район",
+            "capacity": 3000
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 3,
+        "fields": {
+            "name": "Западное Хранилище",
+            "address": "Западная ул. 789, Новосибирск",
+            "responsible": 3,
+            "location": "Западная сторона",
+            "capacity": 4000
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 4,
+        "fields": {
+            "name": "Северный Депо",
+            "address": "Северный бульв. 101, Екатеринбург",
+            "responsible": 4,
+            "location": "Северная зона",
+            "capacity": 3500
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 5,
+        "fields": {
+            "name": "Южный Склад",
+            "address": "Южная ул. 202, Казань",
+            "responsible": 5,
+            "location": "Южный район",
+            "capacity": 4500
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 6,
+        "fields": {
+            "name": "Главный Распределительный Центр",
+            "address": "Центральный парк 303, Москва",
+            "responsible": 6,
+            "location": "Центральная часть",
+            "capacity": 6000
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 7,
+        "fields": {
+            "name": "Вторичное Хранилище",
+            "address": "Вторичный пер. 404, Санкт-Петербург",
+            "responsible": 7,
+            "location": "Пригород",
+            "capacity": 2500
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 8,
+        "fields": {
+            "name": "Аварийный Запас",
+            "address": "Аварийная ул. 505, Новосибирск",
+            "responsible": 8,
+            "location": "Окраина",
+            "capacity": 2000
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 9,
+        "fields": {
+            "name": "Резервный Склад",
+            "address": "Резервная ул. 606, Екатеринбург",
+            "responsible": 9,
+            "location": "Промзона",
+            "capacity": 3000
+        }
+    },
+    {
+        "model": "warehouses.warehouse",
+        "pk": 10,
+        "fields": {
+            "name": "Переполненное Хранилище",
+            "address": "Бульвар Переполнения 707, Казань",
+            "responsible": 10,
+            "location": "Центр города",
+            "capacity": 1500
+        }
+    },
+    {
+        "model": "components.component",
+        "pk": 1,
+        "fields": {
+            "name": "Резистор 10кОм",
+            "part_number": "RES-10K",
+            "category": "Электроника",
+            "description": "Высокоточный резистор 10 кОм",
+            "unit": "шт",
+            "barcode": "1234567890123",
+            "quantity": 100,
+            "warehouse": 1,
+            "supplier": 1,
+            "created_at": "2025-06-01T11:00:00",
+            "updated_at": "2025-06-01T11:00:00",
+            "image": null
+        }
+    },
+    {
+        "model": "components.component",
+        "pk": 2,
+        "fields": {
+            "name": "Болт М6",
+            "part_number": "BLT-M6",
+            "category": "Крепёж",
+            "description": "Болт из нержавеющей стали М6",
+            "unit": "шт",
+            "barcode": "1234567890124",
+            "quantity": 200,
+            "warehouse": 2,
+            "supplier": 2,
+            "created_at": "2025-06-02T11:00:00",
+            "updated_at": "2025-06-02T11:00:00",
+            "image": null
+        }
+    },
+    {
+        "model": "components.component",
+        "pk": 4,
+        "fields": {
+            "name": "Гайка М6",
+            "part_number": "NUT-M6",
+            "category": "Крепёж",
+            "description": "Шестигранная гайка для болта М6",
+            "unit": "шт",
+            "barcode": "1234567890126",
+            "quantity": 300,
+            "warehouse": 4,
+            "supplier": 4,
+            "created_at": "2025-06-04T11:00:00",
+            "updated_at": "2025-06-04T11:00:00",
+            "image": null
+        }
+    },
+    {
+        "model": "components.component",
+        "pk": 5,
+        "fields": {
+            "name": "Светодиод Красный",
+            "part_number": "LED-RED",
+            "category": "Электроника",
+            "description": "Красный светодиод 5 мм",
+            "unit": "шт",
+            "barcode": "1234567890127",
+            "quantity": 500,
+            "warehouse": 5,
+            "supplier": 5,
+            "created_at": "2025-06-05T11:00:00",
+            "updated_at": "2025-06-05T11:00:00",
+            "image": null
+        }
+    },
+    {
+        "model": "components.component",
+        "pk": 6,
+        "fields": {
+            "name": "Отвёртка Крестовая",
+            "part_number": "SCR-PH",
+            "category": "Инструменты",
+            "description": "Крестовая отвёртка Phillips",
+            "unit": "шт",
+            "barcode": "1234567890128",
+            "quantity": 20,
+            "warehouse": 6,
+            "supplier": 6,
+            "created_at": "2025-06-06T11:00:00",
+            "updated_at": "2025-06-06T11:00:00",
+            "image": null
+        }
+    },
+    {
+        "model": "components.component",
+        "pk": 7,
+        "fields": {
+            "name": "Защитные Перчатки",
+            "part_number": "GLV-SAF",
+            "category": "Безопасность",
+            "description": "Защитные рабочие перчатки",
+            "unit": "пара",
+            "barcode": "1234567890129",
+            "quantity": 50,
+            "warehouse": 7,
+            "supplier": 7,
+            "created_at": "2025-06-07T11:00:00",
+            "updated_at": "2025-06-07T11:00:00",
+            "image": null
+        }
+    },
+    {
+        "model": "components.component",
+        "pk": 8,
+        "fields": {
+            "name": "Рулетка 5м",
+            "part_number": "TAPE-5M",
+            "category": "Инструменты",
+            "description": "Измерительная рулетка 5 метров",
+            "unit": "шт",
+            "barcode": "1234567890130",
+            "quantity": 30,
+            "warehouse": 8,
+            "supplier": 8,
+            "created_at": "2025-06-08T11:00:00",
+            "updated_at": "2025-06-08T11:00:00",
+            "image": null
+        }
+    },
+    {
+        "model": "components.component",
+        "pk": 9,
+        "fields": {
+            "name": "Офисный Стул",
+            "part_number": "CHR-OFF",
+            "category": "Мебель",
+            "description": "Эргономичный офисный стул",
+            "unit": "шт",
+            "barcode": "1234567890131",
+            "quantity": 10,
+            "warehouse": 9,
+            "supplier": 9,
+            "created_at": "2025-06-09T11:00:00",
+            "updated_at": "2025-06-09T11:00:00",
+            "image": null
+        }
+    },
+    {
+        "model": "components.component",
+        "pk": 10,
+        "fields": {
+            "name": "Бумага А4",
+            "part_number": "PAP-A4",
+            "category": "Офисные товары",
+            "description": "Пачка бумаги А4, 500 листов",
+            "unit": "уп",
+            "barcode": "1234567890132",
+            "quantity": 100,
+            "warehouse": 10,
+            "supplier": 10,
+            "created_at": "2025-06-10T11:00:00",
+            "updated_at": "2025-06-10T11:00:00",
+            "image": null
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 1,
+        "fields": {
+            "supplier": 1,
+            "order_date": "2025-06-01",
+            "status": "отправлен",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 2,
+        "fields": {
+            "supplier": 2,
+            "order_date": "2025-06-02",
+            "status": "в ожидании",
+            "created_by": 2
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 3,
+        "fields": {
+            "supplier": 3,
+            "order_date": "2025-06-03",
+            "status": "доставлен",
+            "created_by": 3
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 4,
+        "fields": {
+            "supplier": 4,
+            "order_date": "2025-06-04",
+            "status": "в ожидании",
+            "created_by": 4
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 5,
+        "fields": {
+            "supplier": 5,
+            "order_date": "2025-06-05",
+            "status": "отправлен",
+            "created_by": 5
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 6,
+        "fields": {
+            "supplier": 6,
+            "order_date": "2025-06-06",
+            "status": "доставлен",
+            "created_by": 6
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 7,
+        "fields": {
+            "supplier": 7,
+            "order_date": "2025-06-07",
+            "status": "в ожидании",
+            "created_by": 7
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 8,
+        "fields": {
+            "supplier": 8,
+            "order_date": "2025-06-08",
+            "status": "отправлен",
+            "created_by": 8
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 9,
+        "fields": {
+            "supplier": 9,
+            "order_date": "2025-06-09",
+            "status": "доставлен",
+            "created_by": 9
+        }
+    },
+    {
+        "model": "orders.order",
+        "pk": 10,
+        "fields": {
+            "supplier": 10,
+            "order_date": "2025-06-10",
+            "status": "в ожидании",
+            "created_by": 10
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 1,
+        "fields": {
+            "order": 1,
+            "component": 1,
+            "quantity": 50
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 2,
+        "fields": {
+            "order": 2,
+            "component": 2,
+            "quantity": 100
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 3,
+        "fields": {
+            "order": 3,
+            "component": 3,
+            "quantity": 75
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 4,
+        "fields": {
+            "order": 4,
+            "component": 4,
+            "quantity": 200
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 5,
+        "fields": {
+            "order": 5,
+            "component": 5,
+            "quantity": 300
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 6,
+        "fields": {
+            "order": 6,
+            "component": 6,
+            "quantity": 10
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 7,
+        "fields": {
+            "order": 7,
+            "component": 7,
+            "quantity": 25
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 8,
+        "fields": {
+            "order": 8,
+            "component": 8,
+            "quantity": 15
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 9,
+        "fields": {
+            "order": 9,
+            "component": 9,
+            "quantity": 5
+        }
+    },
+    {
+        "model": "orders.orderitem",
+        "pk": 10,
+        "fields": {
+            "order": 10,
+            "component": 10,
+            "quantity": 50
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "action": "Создан компонент",
+            "timestamp": "2025-06-01T10:00:00",
+            "details": "Добавлен Резистор 10кОм",
+            "old_value": "",
+            "new_value": "Резистор 10кОм"
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "action": "Обновлён заказ",
+            "timestamp": "2025-06-02T11:00:00",
+            "details": "Статус изменён на 'отправлен'",
+            "old_value": "в ожидании",
+            "new_value": "отправлен"
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "action": "Удалён компонент",
+            "timestamp": "2025-06-03T12:00:00",
+            "details": "Удалён Конденсатор 100мкФ",
+            "old_value": "Конденсатор 100мкФ",
+            "new_value": ""
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "action": "Создан заказ",
+            "timestamp": "2025-06-04T13:00:00",
+            "details": "Размещён заказ на Гайки М6",
+            "old_value": "",
+            "new_value": "Заказ #4"
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "action": "Обновлён профиль пользователя",
+            "timestamp": "2025-06-05T14:00:00",
+            "details": "Изменён email",
+            "old_value": "old.email@example.com",
+            "new_value": "new.email@example.com"
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "action": "Вход в систему",
+            "timestamp": "2025-06-06T15:00:00",
+            "details": "Пользователь вошёл в систему",
+            "old_value": "",
+            "new_value": ""
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 7,
+        "fields": {
+            "user": 7,
+            "action": "Обновлена вместимость склада",
+            "timestamp": "2025-06-07T16:00:00",
+            "details": "Увеличена вместимость до 4000",
+            "old_value": "3500",
+            "new_value": "4000"
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 8,
+        "fields": {
+            "user": 8,
+            "action": "Создан поставщик",
+            "timestamp": "2025-06-08T17:00:00",
+            "details": "Добавлен новый поставщик: Инструменты Без Границ",
+            "old_value": "",
+            "new_value": "Инструменты Без Границ"
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 9,
+        "fields": {
+            "user": 9,
+            "action": "Удалён заказ",
+            "timestamp": "2025-06-09T18:00:00",
+            "details": "Отменён заказ #9",
+            "old_value": "Заказ #9",
+            "new_value": ""
+        }
+    },
+    {
+        "model": "audit.auditlog",
+        "pk": 10,
+        "fields": {
+            "user": 10,
+            "action": "Обновлено количество компонента",
+            "timestamp": "2025-06-10T19:00:00",
+            "details": "Количество изменено с 100 на 150",
+            "old_value": "100",
+            "new_value": "150"
+        }
+    }
+]
