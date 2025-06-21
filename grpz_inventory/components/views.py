@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Component
 from .forms import ComponentForm
+import io  # Для улучшения обработки изображений
 
 def is_clerk(user):
     return user.is_authenticated and user.role in ['warehouse_worker', 'admin']
@@ -19,7 +20,7 @@ def component_list(request):
                         'name': component.name,
                         'part_number': component.part_number,
                         'quantity': component.quantity,
-                        'image': component.image.url if component.image else None,
+                        'image': component.image.url if component.image and hasattr(component.image, 'url') else None,
                         'warehouse': component.warehouse.name if component.warehouse else None,
                         'supplier': component.supplier.name if component.supplier else None
                     }
@@ -50,12 +51,13 @@ def add_component(request):
         if form.is_valid():
             component = form.save()
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                image_url = component.image.url if component.image and hasattr(component.image, 'url') else None
                 return JsonResponse({
                     'success': True,
                     'pk': component.pk,
                     'name': component.name,
                     'quantity': component.quantity,
-                    'image': component.image.url if component.image else None,
+                    'image': image_url,
                     'message': 'Компонент добавлен!'
                 }, status=201)
             return redirect('components:component_list')
@@ -63,7 +65,7 @@ def add_component(request):
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': False,
-                    'errors': form.errors.as_json()  # Используем as_json() для структурированного вывода ошибок
+                    'errors': form.errors.as_json()
                 }, status=400)
             return render(request, 'components/add.html', {'form': form})
     form = ComponentForm()
@@ -78,12 +80,13 @@ def edit_component(request, pk):
         if form.is_valid():
             component = form.save()
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                image_url = component.image.url if component.image and hasattr(component.image, 'url') else None
                 return JsonResponse({
                     'success': True,
                     'pk': component.pk,
                     'name': component.name,
                     'quantity': component.quantity,
-                    'image': component.image.url if component.image else None,
+                    'image': image_url,
                     'message': 'Компонент обновлён!'
                 }, status=200)
             return redirect('components:component_list')
@@ -91,7 +94,7 @@ def edit_component(request, pk):
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': False,
-                    'errors': form.errors.as_json()  # Используем as_json() для структурированного вывода ошибок
+                    'errors': form.errors.as_json()
                 }, status=400)
             return render(request, 'components/add.html', {'form': form, 'component': component})
     form = ComponentForm(instance=component)
